@@ -1,20 +1,25 @@
-(function(app) {
+angular.module( 'ngBoilerplate', [
+  'templates-app',
+  'templates-common',
+  'ngBoilerplate.home',
+  'ngBoilerplate.about',
+  'ui.router'
+])
 
-    app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home');
-    }]);
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+  $urlRouterProvider.otherwise( '/home' );
+})
 
-    app.run(function () {});
+.run( function run () {
+})
 
-    app.controller('AppController', ['$scope', function ($scope) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    if ( angular.isDefined( toState.data.pageTitle ) ) {
+      $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate' ;
+    }
+  });
+})
 
-    }]);
+;
 
-}(angular.module("bookapp-client", [
-    'bookapp-client.home',
-    'bookapp-client.about',
-    'templates-app',
-    'templates-common',
-    'ui.router.state',
-    'ui.router',
-])));
