@@ -1,0 +1,6 @@
+{
+  "generator-ngbp": {
+    "projectName": "bookapp-client",
+    "useCoffeescript": false
+  }
+}
