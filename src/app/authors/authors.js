@@ -1,12 +1,12 @@
 'use strict';
 
-var bookapp_authors = angular.module('bookapp.authors', ['ui.router']);
+var bookappAuthors = angular.module('bookapp.authors', ['ui.router']);
 
-bookapp_authors.config(function config( $stateProvider ) {
+bookappAuthors.config(function config( $stateProvider ) {
     $stateProvider.state( 'authors', {
         url: '/authors',
         views: {
-            "main": {
+            'main': {
                 controller: 'BookController',
                 templateUrl: 'home/authors.tpl.html'
             }
@@ -15,7 +15,7 @@ bookapp_authors.config(function config( $stateProvider ) {
     });
 });
 
-bookapp_authors.controller('AuthorController', function ($scope, Author) {
+bookappAuthors.controller('AuthorController', function ($scope, Author) {
     $scope.currentAuthor = new Author();
     $scope.authors = Author.query();
     $scope.showId = false;
@@ -45,7 +45,7 @@ bookapp_authors.controller('AuthorController', function ($scope, Author) {
     };
 });
 
-bookapp_authors.factory('Author', function ($resource) {
+bookappAuthors.factory('Author', function ($resource) {
     return $resource('rest/authors/:authorId', {authorId: '@id'}, {
         'update': {method: 'PUT'}
     });

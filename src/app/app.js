@@ -1,25 +1,26 @@
-angular.module( 'bookapp', [
-  'templates-app',
-  'templates-common',
-  'bookapp.books',
-  'bookapp.autors',
-  'ui.router'
-])
+'use strict';
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/books' );
-})
+var bookapp = angular.module('bookapp', [
+    'templates-app',
+    'templates-common',
+    'bookapp.books',
+    'bookapp.authors',
+    'ui.router',
+    'ngResource'
+]);
 
-.run( function run () {
-})
+bookapp.config(function myAppConfig($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/books');
+});
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    if ( angular.isDefined( toState.data.pageTitle ) ) {
-      $scope.pageTitle = toState.data.pageTitle + ' | bookapp' ;
-    }
-  });
-})
+bookapp.run(function run() {
+});
 
-;
+bookapp.controller('AppCtrl', function AppCtrl($scope, $location) {
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        if (angular.isDefined(toState.data.pageTitle)) {
+            $scope.pageTitle = toState.data.pageTitle + ' | bookapp';
+        }
+    });
+});
 

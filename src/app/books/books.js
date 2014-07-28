@@ -1,12 +1,12 @@
 'use strict';
 
-var bookapp_books = angular.module('bookapp.books', ['ui.router']);
+var bookappBooks = angular.module('bookapp.books', ['ui.router']);
 
-bookapp_books.config(function config( $stateProvider ) {
+bookappBooks.config(function config( $stateProvider ) {
     $stateProvider.state( 'books', {
         url: '/books',
         views: {
-            "main": {
+            'main': {
                 controller: 'BookController',
                 templateUrl: 'home/books.tpl.html'
             }
@@ -15,7 +15,7 @@ bookapp_books.config(function config( $stateProvider ) {
     });
 });
 
-bookapp_books.controller('BookController', function ($scope, Book, Author) {
+bookappBooks.controller('BookController', function ($scope, Book, Author) {
 
     $scope.currentBook = new Book();
     $scope.currentBook.releaseDate = new Date();
@@ -50,7 +50,7 @@ bookapp_books.controller('BookController', function ($scope, Book, Author) {
     };
 });
 
-bookapp_books.factory('Book', function ($resource) {
+bookappBooks.factory('Book', function ($resource) {
     return $resource('rest/books/:bookId', {bookId: '@id'}, {
         'update': {method: 'PUT'}
     });
