@@ -14,8 +14,7 @@ bookapp.config(function myAppConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/books');
 });
 
-bookapp.run(function run() {
-});
+
 
 bookapp.controller('AppCtrl', function AppCtrl($scope, $location) {
     $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

@@ -5,12 +5,7 @@ var bookappAuthors = angular.module('bookapp.authors', ['ui.router']);
 bookappAuthors.config(function config( $stateProvider ) {
     $stateProvider.state( 'authors', {
         url: '/authors',
-        views: {
-            'main': {
-                controller: 'BookController',
-                templateUrl: 'authors/authors.tpl.html'
-            }
-        },
+        templateUrl: 'authors/authors.tpl.html',
         data:{ pageTitle: 'Authors' }
     });
 });

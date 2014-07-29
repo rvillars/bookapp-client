@@ -5,12 +5,7 @@ var bookappBooks = angular.module('bookapp.books', ['ui.router']);
 bookappBooks.config(function config( $stateProvider ) {
     $stateProvider.state( 'books', {
         url: '/books',
-        views: {
-            'main': {
-                controller: 'BookController',
-                templateUrl: 'books/books.tpl.html'
-            }
-        },
+        templateUrl: 'books/books.tpl.html',
         data:{ pageTitle: 'Books' }
     });
 });
