@@ -54,10 +54,10 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            build_vendor_assets: {
+            build_bower_assets: {
                 files: [
                     {
-                        src: [ '<%= vendor_files.assets %>' ],
+                        src: [ '<%= bower_files.assets %>' ],
                         dest: '<%= build_dir %>/assets/',
                         cwd: '.',
                         expand: true,
@@ -75,10 +75,10 @@ module.exports = function (grunt) {
                     }
                 ]
             },
-            build_vendorjs: {
+            build_bowerjs: {
                 files: [
                     {
-                        src: [ '<%= vendor_files.js %>' ],
+                        src: [ '<%= bower_files.js %>' ],
                         dest: '<%= build_dir %>/',
                         cwd: '.',
                         expand: true
@@ -102,27 +102,25 @@ module.exports = function (grunt) {
          */
         concat: {
             /**
-             * The `build_css` target concatenates compiled CSS and vendor CSS
+             * The `build_css` target concatenates compiled CSS and bower CSS
              * together.
              */
             build_css: {
                 src: [
-                    '<%= vendor_files.css %>',
+                    '<%= bower_files.css %>',
                     '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
                 ],
                 dest: '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
             },
             /**
              * The `compile_js` target is the concatenation of our application source
-             * code and all specified vendor source code into a single file.
+             * code and all specified bower source code into a single file.
              */
             compile_js: {
                 src: [
-                    '<%= vendor_files.js %>',
-                    'module.prefix',
+                    '<%= bower_files.js %>',
                     '<%= build_dir %>/src/**/*.js',
                     '<%= html2js.app.dest %>',
-                    'module.suffix'
                 ],
                 dest: '<%= compile_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
             }
@@ -261,10 +259,10 @@ module.exports = function (grunt) {
             build: {
                 dir: '<%= build_dir %>',
                 src: [
-                    '<%= vendor_files.js %>',
+                    '<%= bower_files.js %>',
                     '<%= build_dir %>/src/**/*.js',
                     '<%= html2js.app.dest %>',
-                    '<%= vendor_files.css %>',
+                    '<%= bower_files.css %>',
                     '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
                 ]
             },
@@ -278,7 +276,7 @@ module.exports = function (grunt) {
                 dir: '<%= compile_dir %>',
                 src: [
                     '<%= concat.compile_js.dest %>',
-                    '<%= vendor_files.css %>',
+                    '<%= bower_files.css %>',
                     '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
                 ]
             }
@@ -336,7 +334,7 @@ module.exports = function (grunt) {
                 files: [
                     'src/assets/**/*'
                 ],
-                tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets' ]
+                tasks: [ 'copy:build_app_assets', 'copy:build_bower_assets' ]
             },
 
             /**
@@ -389,8 +387,8 @@ module.exports = function (grunt) {
      */
     grunt.registerTask('build', [
         'clean', 'html2js', 'jshint', 'less:build',
-        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-        'copy:build_appjs', 'copy:build_vendorjs', 'index:build'
+        'concat:build_css', 'copy:build_app_assets', 'copy:build_bower_assets',
+        'copy:build_appjs', 'copy:build_bowerjs', 'index:build'
     ]);
 
     /**
