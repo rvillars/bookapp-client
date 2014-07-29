@@ -5,6 +5,7 @@ var bookapp = angular.module('bookapp', [
     'templates-common',
     'bookapp.books',
     'bookapp.authors',
+    'ui.bootstrap',
     'ui.router',
     'ngResource'
 ]);

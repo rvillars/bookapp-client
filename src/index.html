@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="bookapp" ng-controller="AppCtrl">
+<html ng-app="bookapp">
 
 <head>
     <title>BFH BookApp REST</title>
@@ -12,7 +12,7 @@
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
 </head>
 
-<body style="padding-top: 70px">
+<body ng-controller="AppCtrl">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
