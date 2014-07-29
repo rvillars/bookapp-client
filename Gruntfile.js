@@ -177,7 +177,7 @@ module.exports = function (grunt) {
                 src: [
                     '<%= bower_files.js %>',
                     '<%= build_dir %>/js/**/*.js',
-                    '<%= bower_files.css %>',
+                    '<%= bower_files.css %>'
                 ]
             }
         },
@@ -243,7 +243,7 @@ module.exports = function (grunt) {
             html: {
                 files: [ '<%= app_files.html %>' ],
                 tasks: [ 'index:build' ]
-            },
+            }
         }
     };
 
