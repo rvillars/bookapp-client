@@ -8,7 +8,7 @@ bookappBooks.config(function config( $stateProvider ) {
         views: {
             'main': {
                 controller: 'BookController',
-                templateUrl: 'home/books.tpl.html'
+                templateUrl: 'books/books.tpl.html'
             }
         },
         data:{ pageTitle: 'Books' }

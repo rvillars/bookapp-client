@@ -8,7 +8,7 @@ bookappAuthors.config(function config( $stateProvider ) {
         views: {
             'main': {
                 controller: 'BookController',
-                templateUrl: 'home/authors.tpl.html'
+                templateUrl: 'authors/authors.tpl.html'
             }
         },
         data:{ pageTitle: 'Authors' }
