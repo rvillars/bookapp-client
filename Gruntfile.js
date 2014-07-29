@@ -7,12 +7,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-ngmin');
-    grunt.loadNpmTasks('grunt-html2js');
 
     /**
      * Load in our build configuration file.
@@ -34,8 +30,7 @@ module.exports = function (grunt) {
          * The directories to delete when `grunt clean` is executed.
          */
         clean: [
-            '<%= build_dir %>',
-            '<%= compile_dir %>'
+            '<%= build_dir %>'
         ],
 
         /**
@@ -54,6 +49,17 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            build_app_tpl: {
+                files: [
+                    {
+                        src: [ '<%= app_files.tpl %>' ],
+                        dest: '<%= build_dir %>/pages/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
+                    }
+                ]
+            },
             build_bower_assets: {
                 files: [
                     {
@@ -69,60 +75,22 @@ module.exports = function (grunt) {
                 files: [
                     {
                         src: [ '<%= app_files.js %>' ],
-                        dest: '<%= build_dir %>/',
+                        dest: '<%= build_dir %>/js',
                         cwd: '.',
-                        expand: true
+                        expand: true,
+                        flatten: true
                     }
                 ]
             },
             build_bowerjs: {
                 files: [
                     {
-                        src: [ '<%= bower_files.js %>' ],
+                        src: [ '<%= bower_files.js %>','<%= bower_files.css %>' ],
                         dest: '<%= build_dir %>/',
                         cwd: '.',
                         expand: true
                     }
                 ]
-            },
-            compile_assets: {
-                files: [
-                    {
-                        src: [ '**' ],
-                        dest: '<%= compile_dir %>/assets',
-                        cwd: '<%= build_dir %>/assets',
-                        expand: true
-                    }
-                ]
-            }
-        },
-
-        /**
-         * `grunt concat` concatenates multiple source files into a single file.
-         */
-        concat: {
-            /**
-             * The `build_css` target concatenates compiled CSS and bower CSS
-             * together.
-             */
-            build_css: {
-                src: [
-                    '<%= bower_files.css %>',
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
-                ],
-                dest: '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
-            },
-            /**
-             * The `compile_js` target is the concatenation of our application source
-             * code and all specified bower source code into a single file.
-             */
-            compile_js: {
-                src: [
-                    '<%= bower_files.js %>',
-                    '<%= build_dir %>/src/**/*.js',
-                    '<%= html2js.app.dest %>',
-                ],
-                dest: '<%= compile_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
             }
         },
 
@@ -140,39 +108,6 @@ module.exports = function (grunt) {
                         expand: true
                     }
                 ]
-            }
-        },
-
-        /**
-         * Minify the sources!
-         */
-        uglify: {
-            compile: {
-                files: {
-                    '<%= concat.compile_js.dest %>': '<%= concat.compile_js.dest %>'
-                }
-            }
-        },
-
-        /**
-         * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
-         * Only our `main.less` file is included in compilation; all other files
-         * must be imported from this file.
-         */
-        less: {
-            build: {
-                files: {
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
-                }
-            },
-            compile: {
-                files: {
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css': '<%= app_files.less %>'
-                },
-                options: {
-                    cleancss: true,
-                    compress: true
-                }
             }
         },
 
@@ -226,25 +161,6 @@ module.exports = function (grunt) {
         },
 
         /**
-         * HTML2JS is a Grunt plugin that takes all of your template files and
-         * places them into JavaScript files as strings that are added to
-         * AngularJS's template cache. This means that the templates too become
-         * part of the initial payload as one JavaScript file. Neat!
-         */
-        html2js: {
-            /**
-             * These are the templates from `src/app`.
-             */
-            app: {
-                options: {
-                    base: 'src/app'
-                },
-                src: [ '<%= app_files.atpl %>' ],
-                dest: '<%= build_dir %>/templates-app.js'
-            }
-        },
-
-        /**
          * The `index` task compiles the `index.html` file as a Grunt template. CSS
          * and JS files co-exist here but they get split apart later.
          */
@@ -260,24 +176,8 @@ module.exports = function (grunt) {
                 dir: '<%= build_dir %>',
                 src: [
                     '<%= bower_files.js %>',
-                    '<%= build_dir %>/src/**/*.js',
-                    '<%= html2js.app.dest %>',
+                    '<%= build_dir %>/js/**/*.js',
                     '<%= bower_files.css %>',
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
-                ]
-            },
-
-            /**
-             * When it is time to have a completely compiled application, we can
-             * alter the above to include only a single JavaScript and a single CSS
-             * file. Now we're back!
-             */
-            compile: {
-                dir: '<%= compile_dir %>',
-                src: [
-                    '<%= concat.compile_js.dest %>',
-                    '<%= bower_files.css %>',
-                    '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
                 ]
             }
         },
@@ -344,24 +244,6 @@ module.exports = function (grunt) {
                 files: [ '<%= app_files.html %>' ],
                 tasks: [ 'index:build' ]
             },
-
-            /**
-             * When our templates change, we only rewrite the template cache.
-             */
-            tpls: {
-                files: [
-                    '<%= app_files.atpl %>'
-                ],
-                tasks: [ 'html2js' ]
-            },
-
-            /**
-             * When the CSS files change, we need to compile and minify them.
-             */
-            less: {
-                files: [ 'src/**/*.less' ],
-                tasks: [ 'less:build' ]
-            }
         }
     };
 
@@ -380,23 +262,15 @@ module.exports = function (grunt) {
     /**
      * The default task is to build and compile.
      */
-    grunt.registerTask('default', [ 'build', 'compile' ]);
+    grunt.registerTask('default', [ 'build']);
 
     /**
      * The `build` task gets your app ready to run for development and testing.
      */
     grunt.registerTask('build', [
-        'clean', 'html2js', 'jshint', 'less:build',
-        'concat:build_css', 'copy:build_app_assets', 'copy:build_bower_assets',
-        'copy:build_appjs', 'copy:build_bowerjs', 'index:build'
-    ]);
-
-    /**
-     * The `compile` task gets your app ready for deployment by concatenating and
-     * minifying your code.
-     */
-    grunt.registerTask('compile', [
-        'less:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'
+        'clean', 'jshint',
+        'copy:build_app_assets', 'copy:build_bower_assets', 'copy:build_app_tpl',
+        'copy:build_appjs', 'ngmin', 'copy:build_bowerjs', 'index:build'
     ]);
 
     /**
