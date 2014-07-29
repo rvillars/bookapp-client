@@ -21,22 +21,11 @@ module.exports = {
    */
   app_files: {
     js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**/*.js' ],
-    jsunit: [ 'src/**/*.spec.js' ],
 
     atpl: [ 'src/app/**/*.tpl.html' ],
-    ctpl: [ 'src/common/**/*.tpl.html' ],
 
     html: [ 'src/index.html' ],
     less: 'src/less/main.less'
-  },
-
-  /**
-   * This is a collection of files used during testing only.
-   */
-  test_files: {
-    js: [
-      'vendor/angular-mocks/angular-mocks.js'
-    ]
   },
 
   /**
