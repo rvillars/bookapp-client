@@ -17,7 +17,8 @@ module.exports = {
       'dependencies/angular-ui-utils/modules/route/route.js'
     ],
     css: [
-      'dependencies/bootstrap/dist/css/bootstrap.css'
+      'dependencies/bootstrap/dist/css/bootstrap.css',
+      'dependencies/bootstrap/dist/css/bootstrap.css.map'
     ],
     assets: [
     ]

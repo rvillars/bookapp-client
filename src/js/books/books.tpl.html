@@ -28,12 +28,14 @@
         <button id="cancel" ng-click="cancel()" class="btn">Cancel</button>
     </form>
 
-    <form id="list">
+    <div id="list">
         <fieldset>
             <legend>Books</legend>
-            <label for="showId" class="checkbox">
-                <input id="showId" type="checkbox" ng-model="showId">Show Id</input>
-            </label>
+            <div class="checkbox">
+                <label for="showId">
+                    <input id="showId" type="checkbox" ng-model="showId">Show Id</input>
+                </label>
+            </div>
             <table id="table" class="table table-striped table-bordered table-condensed">
                 <thead>
                 <tr>
@@ -60,5 +62,5 @@
                 </tbody>
             </table>
         </fieldset>
-    </form>
+    </div>
 </div>
