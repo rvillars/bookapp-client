@@ -1,13 +1,13 @@
 {
   "name": "bookapp",
   "version": "0.0.1",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "angular": "~1.2",
     "angular-mocks": "~1.2",
     "angular-resource": "~1.2",
     "bootstrap": "~3",
-    "angular-bootstrap": "~0.11",
+    "angular-bootstrap": "~0.12",
     "angular-ui-router": "~0.2"
-  },
-  "dependencies": {}
+  }
 }

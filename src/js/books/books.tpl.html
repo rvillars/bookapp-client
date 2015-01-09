@@ -9,7 +9,12 @@
                 </div>
                 <div class=" form-group col-md-6">
                     <label for="releaseDate">Release date</label>
-                    <input id="releaseDate" type="text" ng-model="currentBook.releaseDate" datepicker-popup="dd.MM.yyyy" class="form-control"/>
+                    <div class="input-group">
+                        <input id="releaseDate" type="text" ng-model="currentBook.releaseDate" datepicker-popup="dd.MM.yyyy" is-open="opened" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i>&nbsp;</button>
+                        </span>
+                    </div>
                 </div>
                 <div class=" form-group col-md-6">
                     <label for="author">Author</label>
