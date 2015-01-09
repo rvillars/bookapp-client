@@ -5,14 +5,25 @@
 <head>
     <title>BFH BookApp REST</title>
 
+    <!-- bower:css -->
+    <!-- endbower -->
+
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
 
+    <!-- bower:js -->
+    <!-- endbower -->
+
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
+
 </head>
 
 <body style="padding-top: 70px;">
+
+<div ng-controller="LoginController">
+    <chell-login-required pre-login-hook="navigateToLogin()" post-login-hook="navigateToAfterLogin()"/>
+</div>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -27,9 +38,15 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li ui-sref-active="active"><a href ui-sref="books">Books</a></li>
-                <li ui-sref-active="active"><a href ui-sref="authors">Authors</a></li>
+                <li ui-sref-active="active"><a href ui-sref="home">Home</a></li>
+                <li ui-sref-active="active" visible-by-login><a href ui-sref="books">Books</a></li>
+                <li ui-sref-active="active" visible-by-group="Users"><a href ui-sref="authors">Authors</a></li>
+                <li ui-sref-active="active" visible-by-group="Administrators"><a href ui-sref="users" >Users</a></li>
+                <li ui-sref-active="active" visible-by-group="Administrators"><a href ui-sref="groups">Groups</a></li>
             </ul>
+            <!--<chell-user-button class="pull-right navbar-btn">-->
+                <!--<li visible-by-login role="presentation"><a role="menuitem" tabindex="-1" href ui-sref="profile"><i class="glyphicon glyphicon-user"></i> Profile</a></li>-->
+            <!--</chell-user-button>-->
         </div>
     </div>
 </nav>
@@ -50,6 +67,7 @@
     </div>
 
     <div ui-view></div>
+
 </div>
 </body>
 </html>

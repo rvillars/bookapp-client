@@ -1,0 +1,25 @@
+<div style="width: 400px; margin: 60px auto">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><strong>Sign In</strong></h3>
+        </div>
+        <div class="panel-body" ng-controller="AuthenticationController">
+            <form role="form">
+                <div class="alert alert-danger" ng-show="wrongCredentials">
+                    <a class="close" data-dismiss="alert" href="#">×</a>Wrong credentials
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input class="form-control" id="exampleInputEmail1" placeholder="Enter username" ng-model="login">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password <a href="/sessions/forgot_password" tabindex="-1">(forgot
+                        password)</a>
+                    </label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="password">
+                </div>
+                <button type="submit" class="btn btn-sm btn-default" ng-click="signin()">Sign in</button>
+            </form>
+        </div>
+    </div>
+</div>

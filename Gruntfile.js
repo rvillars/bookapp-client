@@ -9,6 +9,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ngmin');
+    grunt.loadNpmTasks('grunt-bower-install');
 
     /**
      * Load in our build configuration file.
@@ -20,6 +21,15 @@ module.exports = function (grunt) {
      * instructions.
      */
     var taskConfig = {
+
+        bowerInstall: {
+            target: {
+                src: [
+                    'build/index.html'
+                ]
+            }
+        },
+
         /**
          * We read in our `package.json` file so we can access the package name and
          * version. It's already there, so we don't repeat ourselves here.
@@ -103,9 +113,9 @@ module.exports = function (grunt) {
                 files: [
                     {
                         src: [ '<%= app_files.js %>' ],
-                        cwd: '<%= build_dir %>',
-                        dest: '<%= build_dir %>',
-                        expand: true
+                        dest: '<%= build_dir %>/js',
+                        expand: true,
+                        flatten: true
                     }
                 ]
             }
@@ -270,7 +280,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean', 'jshint',
         'copy:build_app_assets', 'copy:build_bower_assets', 'copy:build_app_tpl',
-        'copy:build_appjs', 'ngmin', 'copy:build_bowerjs', 'index:build'
+        'copy:build_appjs', 'ngmin', 'copy:build_bowerjs', 'index:build', 'bowerInstall'
     ]);
 
     /**

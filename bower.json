@@ -1,13 +1,15 @@
 {
   "name": "bookapp",
   "version": "0.0.1",
-  "devDependencies": {
-    "angular": "~1.2",
-    "angular-mocks": "~1.2",
-    "angular-resource": "~1.2",
+  "devDependencies": {},
+  "dependencies": {
+    "angular": "~1.3",
+    "angular-mocks": "~1.3",
+    "angular-resource": "~1.3",
     "bootstrap": "~3",
     "angular-bootstrap": "~0.11",
-    "angular-ui-router": "~0.2"
-  },
-  "dependencies": {}
+    "angular-ui-router": "~0.2",
+    "chell-iam": "mimacom/chell-iam#master",
+    "chell-cms": "mimacom/chell-cms#master"
+  }
 }
