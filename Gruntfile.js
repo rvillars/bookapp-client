@@ -61,6 +61,17 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            build_app_css: {
+                files: [
+                    {
+                        src: [ '<%= app_files.css %>' ],
+                        dest: '<%= build_dir %>/css/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
+                    }
+                ]
+            },
             build_bower_assets: {
                 files: [
                     {
@@ -186,7 +197,8 @@ module.exports = function (grunt) {
                 src: [
                     '<%= bower_files.js %>',
                     '<%= build_dir %>/js/**/*.js',
-                    '<%= bower_files.css %>'
+                    '<%= bower_files.css %>',
+                    '<%= build_dir %>/css/**/*.css',
                 ]
             }
         },
@@ -278,7 +290,7 @@ module.exports = function (grunt) {
      */
     grunt.registerTask('build', [
         'clean', 'jshint',
-        'copy:build_app_assets', 'copy:build_bower_assets', 'copy:build_app_tpl',
+        'copy:build_app_assets', 'copy:build_bower_assets', 'copy:build_app_tpl', 'copy:build_app_css',
         'copy:build_appjs', 'ngmin', 'copy:build_bowerjs', 'index:build', 'bowerInstall'
     ]);
 
